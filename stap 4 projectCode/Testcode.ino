@@ -238,6 +238,15 @@ void loop() {
     }
   }
   
+  if (toestand == GROEP5) {
+    if (knop7 == LOW && knop8 == LOW) { // beide knoppen niet ingedrukt
+      toestandStartTijd = millis();
+      toestand = GROEP6;
+      Serial.println("Nieuwe toestand: GROEP6");
+    }
+  }
+
+   
   if (toestand == GROEP6) {
     if (knop7 == LOW && knop8 == LOW) { // beide knoppen niet ingedrukt
       toestandStartTijd = millis();
@@ -245,7 +254,6 @@ void loop() {
       Serial.println("Nieuwe toestand: GROEP1");
     }
   }
-
 
     /* code voor knoppen
      *    
@@ -265,8 +273,43 @@ void loop() {
  
   // zet stoplichten conform toestand
   if (toestand == GROEP1) {
-    for (int i = 1; i <= 8; i = i + 1) {
-      stoplicht(i, ROOD);
+     
+      stoplicht(1, GROEN); 
+      stoplicht(1, GROEN); 
+      stoplicht(1, GROEN); 
+      stoplicht(1, ROOD);
+      stoplicht(1, ROOD);
+      stoplicht(1, ROOD);
+      stoplicht(1, ROOD);
+      stoplicht(1, ROOD);
+    }
+  }
+
+// zet stoplichten conform toestand
+  if (toestand == GROEP1) {
+     
+      stoplicht(1, GROEN); 
+      stoplicht(1, GROEN); 
+      stoplicht(1, GROEN); 
+      stoplicht(1, ROOD);
+      stoplicht(1, ROOD);
+      stoplicht(1, ROOD);
+      stoplicht(1, ROOD);
+      stoplicht(1, ROOD);
+    }
+  }
+
+// zet stoplichten conform toestand
+  if (toestand == GROEP11) {
+     
+      stoplicht(1, ORANJE); 
+      stoplicht(1, ORANJE); 
+      stoplicht(1, ORANJE); 
+      stoplicht(1, ROOD);
+      stoplicht(1, ROOD);
+      stoplicht(1, ROOD);
+      stoplicht(1, ROOD);
+      stoplicht(1, ROOD);
     }
   }
   
@@ -285,3 +328,5 @@ void loop() {
   // vertraging om te zorgen dat berichten op de seriele monitor leesbaar blijven
   delay(100);
 }
+
+*/ for (int i = 1; i <= 8; i = i + 1) */ {
