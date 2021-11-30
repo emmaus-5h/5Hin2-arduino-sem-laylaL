@@ -41,12 +41,14 @@ int knop7 = 0;
 int knop8 = 0;
 
 // variabelen voor de toestanden
-const int GROEP1 = 1; // alle stoplichten ROOD
-const int GROEP2 = 2; // alle stoplichten ORANJE
-const int GROEP3 = 3; // alle stoplicht GROEN
-const int GROEP4 = 4; // alle stoplicht GROEN
-const int GROEP5 = 5; // alle stoplicht GROEN
-const int GROEP6 = 6; // alle stoplicht GROEN
+const int GROEP1 = 1; //  stoplichten GROEN -> 1.2.3 
+const int GROEP2 = 2; //  stoplichten ORANJE -> 1.2.3
+const int GROEP22 = 3; // alle stoplichten ROOD
+const int GROEP3 = 4; //  stoplicht GROEN -> 6
+const int GROEP33 = 5; // stoplichten ORANJE -> 6
+const int GROEP4 = 5; //  stoplicht GROEN -> 7.8
+const int GROEP5 = 6; //  stoplichten ROOD -> 7.8
+const int GROEP6 = 7; // alle stoplicht ROOD 
 int toestand = GROEP1 ;
 unsigned long toestandStartTijd = 0;
 
@@ -275,27 +277,13 @@ void loop() {
   if (toestand == GROEP1) {
      
       stoplicht(1, GROEN); 
-      stoplicht(1, GROEN); 
-      stoplicht(1, GROEN); 
-      stoplicht(1, ROOD);
-      stoplicht(1, ROOD);
-      stoplicht(1, ROOD);
-      stoplicht(1, ROOD);
-      stoplicht(1, ROOD);
-    }
-  }
-
-// zet stoplichten conform toestand
-  if (toestand == GROEP1) {
-     
-      stoplicht(1, GROEN); 
-      stoplicht(1, GROEN); 
-      stoplicht(1, GROEN); 
-      stoplicht(1, ROOD);
-      stoplicht(1, ROOD);
-      stoplicht(1, ROOD);
-      stoplicht(1, ROOD);
-      stoplicht(1, ROOD);
+      stoplicht(2, GROEN); 
+      stoplicht(3, GROEN); 
+      stoplicht(4, ROOD);
+      stoplicht(5, ROOD);
+      stoplicht(6, ROOD);
+      stoplicht(7, ROOD);
+      stoplicht(8, ROOD);
     }
   }
 
@@ -303,16 +291,114 @@ void loop() {
   if (toestand == GROEP11) {
      
       stoplicht(1, ORANJE); 
-      stoplicht(1, ORANJE); 
-      stoplicht(1, ORANJE); 
-      stoplicht(1, ROOD);
-      stoplicht(1, ROOD);
-      stoplicht(1, ROOD);
-      stoplicht(1, ROOD);
-      stoplicht(1, ROOD);
+      stoplicht(2, ORANJE); 
+      stoplicht(3, ORANJE); 
+      stoplicht(4, ROOD);
+      stoplicht(5, ROOD);
+      stoplicht(6, ROOD);
+      stoplicht(7, ROOD);
+      stoplicht(8, ROOD);
+    }
+  }
+
+// zet stoplichten conform toestand
+  if (toestand == GROEP2) {
+     
+      stoplicht(1, ROOD); 
+      stoplicht(2, ROOD); 
+      stoplicht(3, ROOD); 
+      stoplicht(4, GROEN);
+      stoplicht(5, GROEN);
+      stoplicht(6, ROOD);
+      stoplicht(7, ROOD);
+      stoplicht(8, ROOD);
+    }
+  }
+
+// zet stoplichten conform toestand
+  if (toestand == GROEP22) {
+     
+      stoplicht(1, ROOD); 
+      stoplicht(2, ROOD); 
+      stoplicht(3, ROOD); 
+      stoplicht(4, ORANJE);
+      stoplicht(5, ORANJE);
+      stoplicht(6, ROOD);
+      stoplicht(7, ROOD);
+      stoplicht(8, ROOD);
+    }
+  }
+
+// zet stoplichten conform toestand
+  if (toestand == GROEP3) {
+     
+      stoplicht(1, ROOD); 
+      stoplicht(2, ROOD); 
+      stoplicht(3, ROOD); 
+      stoplicht(4, ROOD);
+      stoplicht(5, ROOD);
+      stoplicht(6, GROEN);
+      stoplicht(7, ROOD);
+      stoplicht(8, ROOD);
     }
   }
   
+// zet stoplichten conform toestand
+  if (toestand == GROEP33) {
+     
+      stoplicht(1, ROOD); 
+      stoplicht(2, ROOD); 
+      stoplicht(3, ROOD); 
+      stoplicht(4, ROOD);
+      stoplicht(5, ROOD);
+      stoplicht(6, ORANJE);
+      stoplicht(7, ROOD);
+      stoplicht(8, ROOD);
+    }
+  }
+
+// zet stoplichten conform toestand
+  if (toestand == GROEP4) {
+     
+      stoplicht(1, ROOD); 
+      stoplicht(2, ROOD); 
+      stoplicht(3, ROOD); 
+      stoplicht(4, ROOD);
+      stoplicht(5, ROOD);
+      stoplicht(6, ROOD);
+      stoplicht(7, GROEN);
+      stoplicht(8, GROEN);
+    }
+  }
+   
+// zet stoplichten conform toestand
+  if (toestand == GROEP5) {
+     
+      stoplicht(1, ROOD); 
+      stoplicht(2, ROOD); 
+      stoplicht(3, ROOD); 
+      stoplicht(4, ROOD);
+      stoplicht(5, ROOD);
+      stoplicht(6, ROOD);
+      stoplicht(7, ROOD);
+      stoplicht(8, ROOD);
+    }
+  }
+
+// zet stoplichten conform toestand
+  if (toestand == GROEP6) {
+     
+      stoplicht(1, GROEN); 
+      stoplicht(2, ROOD); 
+      stoplicht(3, ROOD); 
+      stoplicht(4, ROOD);
+      stoplicht(5, GROEN);
+      stoplicht(6, GROEN);
+      stoplicht(7, ROOD);
+      stoplicht(8, ROOD);
+    }
+  }
+
   if (toestand == GROEP3) {
     for (int i = 1; i <= 8; i = i + 1) {
       stoplicht(i, GROEN);
