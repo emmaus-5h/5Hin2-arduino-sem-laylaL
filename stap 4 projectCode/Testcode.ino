@@ -41,19 +41,24 @@ int knop7 = 0;
 int knop8 = 0;
 
 // variabelen voor de toestanden
-const int RED = 1; // alle stoplichten ROOD
-const int ORANGE = 2; // alle stoplichten ORANJE
-const int GREEN = 3; // alle stoplicht GROEN
-int toestand = RED ;
+const int GROEP1 = 1; // alle stoplichten ROOD
+const int GROEP2 = 2; // alle stoplichten ORANJE
+const int GROEP3 = 3; // alle stoplicht GROEN
+const int GROEP4 = 4; // alle stoplicht GROEN
+const int GROEP5 = 5; // alle stoplicht GROEN
+const int GROEP6 = 6; // alle stoplicht GROEN
+int toestand = GROEP1 ;
 unsigned long toestandStartTijd = 0;
+
+
 
 /*****************************************
    functies die je gebruikt maken
  *****************************************/
 // geef kleuren naam, om je code leesbaarder te maken
-const int ROOD   = 4;
-const int ORANJE = 5;
-const int GROEN  = 6;
+const int ROOD   = 7;
+const int ORANJE = 8;
+const int GROEN  = 9;
 
 void stoplicht(int welke, int kleur) {
   int pinRood   = 0;
@@ -103,11 +108,13 @@ void stoplicht(int welke, int kleur) {
       Serial.println("FOUT: stoplicht " + String(welke) + " bestaat niet");
       break;
   }
+  
   if (kleur ==  ROOD) {
     digitalWrite(pinRood  , HIGH);
     digitalWrite(pinOranje, LOW );
     digitalWrite(pinGroen , LOW );
   }
+  
   if (kleur ==  ORANJE) {
     if (welke == 7 || welke == 8) {
       Serial.println("FOUT: Voetgangerslicht kan niet op oranje");
@@ -117,6 +124,7 @@ void stoplicht(int welke, int kleur) {
       digitalWrite(pinGroen , LOW );
     }
   }
+  
   if (kleur ==  GROEN) {
     digitalWrite(pinRood  , LOW );
     digitalWrite(pinOranje, LOW );
@@ -169,48 +177,106 @@ void loop() {
   knop8 = digitalRead(pin8Knop);
 
   // bepaal toestand
-  if (toestand == RED) {
-    if (millis() - toestandStartTijd > 1000) {
+  if (toestand == GROEP1) {
+    if (millis() - toestandStartTijd > 5000) {
       toestandStartTijd = millis();
-      toestand = GREEN;
-      Serial.println("Nieuwe toestand: GREEN");
-    }
-    if (knop7 == HIGH || knop8 == HIGH) {
-      toestand = ORANGE;
-      Serial.println("Nieuwe toestand: ORANGE");
-    }
-  }
-  if (toestand == GREEN) {
-    if (millis() - toestandStartTijd > 1000) {
-      toestandStartTijd = millis();
-      toestand = RED;
-      Serial.println("Nieuwe toestand: RED");
-    }
-    if (knop7 == HIGH || knop8 == HIGH) {
-      toestand = ORANGE;
-      Serial.println("Nieuwe toestand:ORANGE");
-    }
-  }
-  if (toestand == ORANGE) {
-    if (knop7 == LOW && knop8 == LOW) { // beide knoppen niet ingedrukt
-      toestandStartTijd = millis();
-      toestand = RED;
-      Serial.println("Nieuwe toestand: RED");
+      toestand = GROEP2;
+      Serial.println("Nieuwe toestand: GROEP2");
     }
   }
 
+  if (toestand == GROEP2) {
+    if (millis() - toestandStartTijd > 1000) {
+      toestandStartTijd = millis();
+      toestand = GROEP3;
+      Serial.println("Nieuwe toestand: GROEP3");
+    }
+    
+    if (knop7 == HIGH || knop8 == HIGH) {
+      toestand = GROEP2;
+      Serial.println("Nieuwe toestand:ORANGE");
+    }
+  }
+  
+  if (toestand == GROEP2) {
+    if (knop7 == LOW && knop8 == LOW) { // beide knoppen niet ingedrukt
+      toestandStartTijd = millis();
+      toestand = GROEP1;
+      Serial.println("Nieuwe toestand: GROEP1");
+    }
+  }
+
+   // bepaal toestand
+  if (toestand == GROEP3) {
+    if (millis() - toestandStartTijd > 5000) {
+      toestandStartTijd = millis();
+      toestand = GROEP4;
+      Serial.println("Nieuwe toestand: GROEP4");
+    }
+  }
+  
+      /*
+    if (knop7 == HIGH || knop8 == HIGH) {
+      toestand = GROEP2;
+      millis(); - toestandStartTijd > 1000
+      toestand = GROEP3;
+      Serial.println("Nieuwe toestand: GROEP3");
+    }
+  }
+  */
+  
+  if (toestand == GROEP4) {
+    if (millis() - toestandStartTijd > 1000) {
+      toestandStartTijd = millis();
+      toestand = GROEP5;
+      Serial.println("Nieuwe toestand: GROEP5");
+    }
+    
+    if (knop7 == HIGH || knop8 == HIGH) {
+      toestand = GROEP5;
+      Serial.println("Nieuwe toestand:ORANGE");
+    }
+  }
+  
+  if (toestand == GROEP6) {
+    if (knop7 == LOW && knop8 == LOW) { // beide knoppen niet ingedrukt
+      toestandStartTijd = millis();
+      toestand = GROEP1;
+      Serial.println("Nieuwe toestand: GROEP1");
+    }
+  }
+
+
+    /* code voor knoppen
+     *    
+    if (knop7 == HIGH || knop8 == HIGH) {
+      toestand = GROEP3;
+      Serial.println("Nieuwe toestand: GROEP2");
+    }
+  }
+
+  if (toestand == GROEP3) {
+     if (millis(); - toestandStartTijd > 5000);
+     toestandStartTijd = millis();
+     toestand = GROEP5;
+     Serial.println("Nieuwe toestand: GROEP1"); 
+  */
+  
+ 
   // zet stoplichten conform toestand
-  if (toestand == RED) {
+  if (toestand == GROEP1) {
     for (int i = 1; i <= 8; i = i + 1) {
       stoplicht(i, ROOD);
     }
   }
-  if (toestand == GREEN) {
+  
+  if (toestand == GROEP3) {
     for (int i = 1; i <= 8; i = i + 1) {
       stoplicht(i, GROEN);
     }
   }
-  if (toestand == ORANGE) {
+  
+  if (toestand == GROEP2) {
     for (int i = 1; i <= 6; i = i + 1) {
       stoplicht(i, ORANJE);
     }
