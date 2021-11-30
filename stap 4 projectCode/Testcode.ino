@@ -173,11 +173,11 @@ void loop() {
     if (millis() - toestandStartTijd > 1000) {
       toestandStartTijd = millis();
       toestand = GREEN;
-      Serial.println("Nieuwe toestand: KAMIKAZE");
+      Serial.println("Nieuwe toestand: GREEN");
     }
     if (knop7 == HIGH || knop8 == HIGH) {
       toestand = ORANGE;
-      Serial.println("Nieuwe toestand: EXCITING");
+      Serial.println("Nieuwe toestand: ORANGE");
     }
   }
   if (toestand == GREEN) {
