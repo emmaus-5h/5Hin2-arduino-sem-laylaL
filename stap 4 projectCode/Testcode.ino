@@ -56,9 +56,9 @@ unsigned long toestandStartTijd = 0;
    functies die je gebruikt maken
  *****************************************/
 // geef kleuren naam, om je code leesbaarder te maken
-const int ROOD   = 7;
-const int ORANJE = 8;
-const int GROEN  = 9;
+const int ROOD   = 1;
+const int ORANJE = 2;
+const int GROEN  = 3;
 
 void stoplicht(int welke, int kleur) {
   int pinRood   = 0;
