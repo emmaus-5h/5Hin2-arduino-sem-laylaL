@@ -184,18 +184,18 @@ void loop() {
     if (millis() - toestandStartTijd > 1000) {
       toestandStartTijd = millis();
       toestand = RED;
-      Serial.println("Nieuwe toestand: BORING");
+      Serial.println("Nieuwe toestand: RED");
     }
     if (knop7 == HIGH || knop8 == HIGH) {
       toestand = ORANGE;
-      Serial.println("Nieuwe toestand:EXCITING");
+      Serial.println("Nieuwe toestand:ORANGE");
     }
   }
   if (toestand == ORANGE) {
     if (knop7 == LOW && knop8 == LOW) { // beide knoppen niet ingedrukt
       toestandStartTijd = millis();
       toestand = RED;
-      Serial.println("Nieuwe toestand: BORING");
+      Serial.println("Nieuwe toestand: RED");
     }
   }
 
