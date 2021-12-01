@@ -196,7 +196,69 @@ void loop() {
       Serial.println("Nieuwe toestand: GROEP2");
     }
   }
-  /*
+
+  if (toestand == GROEP2) {
+    if (millis() - toestandStartTijd > 5000) {
+      toestandStartTijd = millis();
+      toestand = GROEP22;
+      Serial.println("Nieuwe toestand: GROEP22");
+    }
+  }
+
+  if (toestand == GROEP22) {
+    if (millis() - toestandStartTijd > 1000) {
+      toestandStartTijd = millis();
+      toestand = GROEP3;
+      Serial.println("Nieuwe toestand: GROEP3");
+    }
+  }
+
+  if (toestand == GROEP3) {
+    if (millis() - toestandStartTijd > 1000) {
+      toestandStartTijd = millis();
+      toestand = GROEP33;
+      Serial.println("Nieuwe toestand: GROEP33");
+    }
+  }
+   
+  if (toestand == GROEP33) {
+    if (millis() - toestandStartTijd > 1000) {
+      toestandStartTijd = millis();
+      toestand = GROEP4;
+      Serial.println("Nieuwe toestand: GROEP4");
+    }
+  }
+   
+    if (toestand == GROEP4) {
+    if (millis() - toestandStartTijd > 1000) {
+      toestandStartTijd = millis();
+      toestand = GROEP5;
+      Serial.println("Nieuwe toestand: GROEP5");
+    }
+  }
+   
+    if (toestand == GROEP5) {
+    if (millis() - toestandStartTijd > 1000) {
+      toestandStartTijd = millis();
+      toestand = GROEP1;
+      Serial.println("Nieuwe toestand: GROEP1");
+    }
+  }
+ 
+  /* code voor knoppen
+
+    if (knop7 == HIGH || knop8 == HIGH) {
+    toestand = GROEP3;
+    Serial.println("Nieuwe toestand: GROEP2");
+    }
+    if (toestand == GROEP3) {
+    if (millis(); - toestandStartTijd > 5000);
+    toestandStartTijd = millis();
+    toestand = GROEP5;
+    Serial.println("Nieuwe toestand: GROEP1");
+    }
+  */
+   /*
     if (knop7 == HIGH || knop8 == HIGH) {
       toestand = GROEP2;
       Serial.println("Nieuwe toestand:GROEP2");
@@ -211,17 +273,8 @@ void loop() {
       }
     }
   */
-
-  // bepaal toestand
-  if (toestand == GROEP2) {
-    if (millis() - toestandStartTijd > 1000) {
-      toestandStartTijd = millis();
-      toestand = GROEP22;
-      Serial.println("Nieuwe toestand: GROEP22");
-    }
-  }
-
-  /*
+   
+     /*
         if (knop7 == HIGH || knop8 == HIGH) {
           toestand = GROEP2;
           millis(); - toestandStartTijd > 1000;
@@ -229,86 +282,6 @@ void loop() {
           Serial.println("Nieuwe toestand: GROEP3");
         }
 
-  */
-
-  if (toestand == GROEP22) {
-    if (millis() - toestandStartTijd > 1000) {
-      toestandStartTijd = millis();
-      toestand = GROEP3;
-      Serial.println("Nieuwe toestand: GROEP3");
-    }
-  }
-
-  /*
-    if (knop7 == HIGH || knop8 == HIGH) {
-    toestand = GROEP5;
-    Serial.println("Nieuwe toestand:ORANGE");
-    }
-
-
-    if (toestand == GROEP5) {
-    if (knop7 == LOW && knop8 == LOW) { // beide knoppen niet ingedrukt
-      toestandStartTijd = millis();
-      toestand = GROEP6;
-      Serial.println("Nieuwe toestand: GROEP6");
-    }
-    }
-
-  */
-  if (toestand == GROEP3) {
-    if (knop7 == LOW && knop8 == LOW) { // beide knoppen niet ingedrukt
-      toestandStartTijd = millis();
-      toestand = GROEP33;
-      Serial.println("Nieuwe toestand: GROEP33");
-    }
-  }
-
-  if (toestand == GROEP33) {
-    if (knop7 == LOW && knop8 == LOW) { // beide knoppen niet ingedrukt
-      toestandStartTijd = millis();
-      toestand = GROEP4;
-      Serial.println("Nieuwe toestand: GROEP4");
-    }
-  }
-
-  if (toestand == GROEP4) {
-    if (knop7 == LOW && knop8 == LOW) { // beide knoppen niet ingedrukt
-      toestandStartTijd = millis();
-      toestand = GROEP5;
-      Serial.println("Nieuwe toestand: GROEP5");
-    }
-  }
-
-
-  if (toestand == GROEP5) {
-    if (knop7 == LOW && knop8 == LOW) { // beide knoppen niet ingedrukt
-      toestandStartTijd = millis();
-      toestand = GROEP6;
-      Serial.println("Nieuwe toestand: GROEP6");
-    }
-  }
-
-   if (toestand == GROEP6) {
-    if (knop7 == LOW && knop8 == LOW) { // beide knoppen niet ingedrukt
-      toestandStartTijd = millis();
-      toestand = GROEP1;
-      Serial.println("Nieuwe toestand: GROEP6");
-    }
-  }
-
-
-  /* code voor knoppen
-
-    if (knop7 == HIGH || knop8 == HIGH) {
-    toestand = GROEP3;
-    Serial.println("Nieuwe toestand: GROEP2");
-    }
-    if (toestand == GROEP3) {
-    if (millis(); - toestandStartTijd > 5000);
-    toestandStartTijd = millis();
-    toestand = GROEP5;
-    Serial.println("Nieuwe toestand: GROEP1");
-    }
   */
 
 
@@ -345,7 +318,7 @@ void loop() {
 
     stoplicht(1, ROOD);
     stoplicht(2, ROOD);
-    stoplicht(3, ROOD);
+    stoplicht(3, GROEN);
     stoplicht(4, GROEN);
     stoplicht(5, GROEN);
     stoplicht(6, ROOD);
@@ -359,7 +332,7 @@ void loop() {
 
     stoplicht(1, ROOD);
     stoplicht(2, ROOD);
-    stoplicht(3, ROOD);
+    stoplicht(3, ORANJE);
     stoplicht(4, ORANJE);
     stoplicht(5, ORANJE);
     stoplicht(6, ROOD);
@@ -372,7 +345,7 @@ void loop() {
 
     stoplicht(1, ROOD);
     stoplicht(2, ROOD);
-    stoplicht(3, ROOD);
+    stoplicht(3, GROEN);
     stoplicht(4, ROOD);
     stoplicht(5, GROEN);
     stoplicht(6, GROEN);
@@ -386,7 +359,7 @@ void loop() {
 
     stoplicht(1, ROOD);
     stoplicht(2, ROOD);
-    stoplicht(3, ROOD);
+    stoplicht(3, ORANJE);
     stoplicht(4, ROOD);
     stoplicht(5, ORANJE);
     stoplicht(6, ORANJE);
@@ -422,7 +395,7 @@ void loop() {
     stoplicht(8, ROOD);
   }
 
-
+*/
   // zet stoplichten conform toestand
   if (toestand == GROEP6) {
 
@@ -435,7 +408,7 @@ void loop() {
     stoplicht(7, ROOD);
     stoplicht(8, ROOD);
   }
-
+/*
 
   if (toestand == GROEP3) {
     for (int i = 1; i <= 8; i = i + 1) {
