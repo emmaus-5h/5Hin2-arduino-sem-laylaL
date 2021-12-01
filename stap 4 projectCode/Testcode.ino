@@ -41,14 +41,15 @@ int knop7 = 0;
 int knop8 = 0;
 
 // variabelen voor de toestanden
-const int GROEP1 = 1; //  stoplichten GROEN -> 1.2.3 
-const int GROEP2 = 2; //  stoplichten ORANJE -> 1.2.3
-const int GROEP22 = 3; // alle stoplichten ROOD
-const int GROEP3 = 4; //  stoplicht GROEN -> 6
-const int GROEP33 = 5; // stoplichten ORANJE -> 6
-const int GROEP4 = 5; //  stoplicht GROEN -> 7.8
-const int GROEP5 = 6; //  stoplichten ROOD -> 7.8
-const int GROEP6 = 7; // alle stoplicht ROOD 
+const int GROEP1 = 1; //  stoplichten GROEN -> 1.2.3
+const int GROEP11 = 2; // stoplichten ORANJE -> 1,1,2
+const int GROEP2 = 3; //  stoplichten ORANJE -> 1.2.3
+const int GROEP22 = 4; // alle stoplichten ROOD
+const int GROEP3 = 5; //  stoplicht GROEN -> 6
+const int GROEP33 = 6; // stoplichten ORANJE -> 6
+const int GROEP4 = 7; //  stoplicht GROEN -> 7.8
+const int GROEP5 = 8; //  stoplichten ROOD -> 7.8
+const int GROEP6 = 9; // alle stoplicht ROOD
 int toestand = GROEP1 ;
 unsigned long toestandStartTijd = 0;
 
@@ -110,13 +111,13 @@ void stoplicht(int welke, int kleur) {
       Serial.println("FOUT: stoplicht " + String(welke) + " bestaat niet");
       break;
   }
-  
+
   if (kleur ==  ROOD) {
     digitalWrite(pinRood  , HIGH);
     digitalWrite(pinOranje, LOW );
     digitalWrite(pinGroen , LOW );
   }
-  
+
   if (kleur ==  ORANJE) {
     if (welke == 7 || welke == 8) {
       Serial.println("FOUT: Voetgangerslicht kan niet op oranje");
@@ -126,7 +127,7 @@ void stoplicht(int welke, int kleur) {
       digitalWrite(pinGroen , LOW );
     }
   }
-  
+
   if (kleur ==  GROEN) {
     digitalWrite(pinRood  , LOW );
     digitalWrite(pinOranje, LOW );
@@ -173,6 +174,7 @@ void setup() {
   pinMode(pin8Knop, INPUT);
 }
 
+
 void loop() {
   // lees sensorwaarden
   knop7 = digitalRead(pin7Knop);
@@ -182,64 +184,102 @@ void loop() {
   if (toestand == GROEP1) {
     if (millis() - toestandStartTijd > 5000) {
       toestandStartTijd = millis();
+      toestand = GROEP11;
+      Serial.println("Nieuwe toestand: GROEP11");
+    }
+  }
+
+  if (toestand == GROEP11) {
+    if (millis() - toestandStartTijd > 1000) {
+      toestandStartTijd = millis();
       toestand = GROEP2;
       Serial.println("Nieuwe toestand: GROEP2");
     }
   }
+  /*
+    if (knop7 == HIGH || knop8 == HIGH) {
+      toestand = GROEP2;
+      Serial.println("Nieuwe toestand:GROEP2");
+    }
 
+
+    if (toestand == GROEP2) {
+      if (knop7 == LOW && knop8 == LOW) { // beide knoppen niet ingedrukt
+        toestandStartTijd = millis();
+        toestand = GROEP22;
+        Serial.println("Nieuwe toestand: GROEP22");
+      }
+    }
+  */
+
+  // bepaal toestand
   if (toestand == GROEP2) {
+    if (millis() - toestandStartTijd > 1000) {
+      toestandStartTijd = millis();
+      toestand = GROEP22;
+      Serial.println("Nieuwe toestand: GROEP22");
+    }
+  }
+
+  /*
+        if (knop7 == HIGH || knop8 == HIGH) {
+          toestand = GROEP2;
+          millis(); - toestandStartTijd > 1000;
+          toestand = GROEP3;
+          Serial.println("Nieuwe toestand: GROEP3");
+        }
+
+  */
+
+  if (toestand == GROEP22) {
     if (millis() - toestandStartTijd > 1000) {
       toestandStartTijd = millis();
       toestand = GROEP3;
       Serial.println("Nieuwe toestand: GROEP3");
     }
-    
-    if (knop7 == HIGH || knop8 == HIGH) {
-      toestand = GROEP2;
-      Serial.println("Nieuwe toestand:ORANGE");
-    }
   }
-  
-  if (toestand == GROEP2) {
+
+  /*
+    if (knop7 == HIGH || knop8 == HIGH) {
+    toestand = GROEP5;
+    Serial.println("Nieuwe toestand:ORANGE");
+    }
+
+
+    if (toestand == GROEP5) {
     if (knop7 == LOW && knop8 == LOW) { // beide knoppen niet ingedrukt
       toestandStartTijd = millis();
-      toestand = GROEP1;
-      Serial.println("Nieuwe toestand: GROEP1");
+      toestand = GROEP6;
+      Serial.println("Nieuwe toestand: GROEP6");
+    }
+    }
+
+  */
+  if (toestand == GROEP3) {
+    if (knop7 == LOW && knop8 == LOW) { // beide knoppen niet ingedrukt
+      toestandStartTijd = millis();
+      toestand = GROEP33;
+      Serial.println("Nieuwe toestand: GROEP33");
     }
   }
 
-   // bepaal toestand
-  if (toestand == GROEP3) {
-    if (millis() - toestandStartTijd > 5000) {
+  if (toestand == GROEP33) {
+    if (knop7 == LOW && knop8 == LOW) { // beide knoppen niet ingedrukt
       toestandStartTijd = millis();
       toestand = GROEP4;
       Serial.println("Nieuwe toestand: GROEP4");
     }
   }
-  
-      /*
-    if (knop7 == HIGH || knop8 == HIGH) {
-      toestand = GROEP2;
-      millis(); - toestandStartTijd > 1000
-      toestand = GROEP3;
-      Serial.println("Nieuwe toestand: GROEP3");
-    }
-  }
-  */
-  
+
   if (toestand == GROEP4) {
-    if (millis() - toestandStartTijd > 1000) {
+    if (knop7 == LOW && knop8 == LOW) { // beide knoppen niet ingedrukt
       toestandStartTijd = millis();
       toestand = GROEP5;
       Serial.println("Nieuwe toestand: GROEP5");
     }
-    
-    if (knop7 == HIGH || knop8 == HIGH) {
-      toestand = GROEP5;
-      Serial.println("Nieuwe toestand:ORANGE");
-    }
   }
-  
+
+
   if (toestand == GROEP5) {
     if (knop7 == LOW && knop8 == LOW) { // beide knoppen niet ingedrukt
       toestandStartTijd = millis();
@@ -248,171 +288,166 @@ void loop() {
     }
   }
 
-   
-  if (toestand == GROEP6) {
+   if (toestand == GROEP6) {
     if (knop7 == LOW && knop8 == LOW) { // beide knoppen niet ingedrukt
       toestandStartTijd = millis();
       toestand = GROEP1;
-      Serial.println("Nieuwe toestand: GROEP1");
+      Serial.println("Nieuwe toestand: GROEP6");
     }
   }
 
-    /* code voor knoppen
-     *    
+
+  /* code voor knoppen
+
     if (knop7 == HIGH || knop8 == HIGH) {
-      toestand = GROEP3;
-      Serial.println("Nieuwe toestand: GROEP2");
+    toestand = GROEP3;
+    Serial.println("Nieuwe toestand: GROEP2");
     }
-  }
-
-  if (toestand == GROEP3) {
-     if (millis(); - toestandStartTijd > 5000);
-     toestandStartTijd = millis();
-     toestand = GROEP5;
-     Serial.println("Nieuwe toestand: GROEP1"); 
+    if (toestand == GROEP3) {
+    if (millis(); - toestandStartTijd > 5000);
+    toestandStartTijd = millis();
+    toestand = GROEP5;
+    Serial.println("Nieuwe toestand: GROEP1");
+    }
   */
-  
- 
+
+
   // zet stoplichten conform toestand
   if (toestand == GROEP1) {
-     
-      stoplicht(1, GROEN); 
-      stoplicht(2, GROEN); 
-      stoplicht(3, GROEN); 
-      stoplicht(4, ROOD);
-      stoplicht(5, ROOD);
-      stoplicht(6, ROOD);
-      stoplicht(7, ROOD);
-      stoplicht(8, ROOD);
-    }
+
+    stoplicht(1, GROEN);
+    stoplicht(2, GROEN);
+    stoplicht(3, GROEN);
+    stoplicht(4, ROOD);
+    stoplicht(5, ROOD);
+    stoplicht(6, ROOD);
+    stoplicht(7, ROOD);
+    stoplicht(8, ROOD);
   }
 
-// zet stoplichten conform toestand
+
+  // zet stoplichten conform toestand
   if (toestand == GROEP11) {
-     
-      stoplicht(1, ORANJE); 
-      stoplicht(2, ORANJE); 
-      stoplicht(3, ORANJE); 
-      stoplicht(4, ROOD);
-      stoplicht(5, ROOD);
-      stoplicht(6, ROOD);
-      stoplicht(7, ROOD);
-      stoplicht(8, ROOD);
-    }
+
+    stoplicht(1, ORANJE);
+    stoplicht(2, ORANJE);
+    stoplicht(3, ORANJE);
+    stoplicht(4, ROOD);
+    stoplicht(5, ROOD);
+    stoplicht(6, ROOD);
+    stoplicht(7, ROOD);
+    stoplicht(8, ROOD);
   }
 
-// zet stoplichten conform toestand
+
+  // zet stoplichten conform toestand
   if (toestand == GROEP2) {
-     
-      stoplicht(1, ROOD); 
-      stoplicht(2, ROOD); 
-      stoplicht(3, ROOD); 
-      stoplicht(4, GROEN);
-      stoplicht(5, GROEN);
-      stoplicht(6, ROOD);
-      stoplicht(7, ROOD);
-      stoplicht(8, ROOD);
-    }
+
+    stoplicht(1, ROOD);
+    stoplicht(2, ROOD);
+    stoplicht(3, ROOD);
+    stoplicht(4, GROEN);
+    stoplicht(5, GROEN);
+    stoplicht(6, ROOD);
+    stoplicht(7, ROOD);
+    stoplicht(8, ROOD);
   }
 
-// zet stoplichten conform toestand
+
+  // zet stoplichten conform toestand
   if (toestand == GROEP22) {
-     
-      stoplicht(1, ROOD); 
-      stoplicht(2, ROOD); 
-      stoplicht(3, ROOD); 
-      stoplicht(4, ORANJE);
-      stoplicht(5, ORANJE);
-      stoplicht(6, ROOD);
-      stoplicht(7, ROOD);
-      stoplicht(8, ROOD);
-    }
+
+    stoplicht(1, ROOD);
+    stoplicht(2, ROOD);
+    stoplicht(3, ROOD);
+    stoplicht(4, ORANJE);
+    stoplicht(5, ORANJE);
+    stoplicht(6, ROOD);
+    stoplicht(7, ROOD);
+    stoplicht(8, ROOD);
   }
 
-// zet stoplichten conform toestand
+  // zet stoplichten conform toestand
   if (toestand == GROEP3) {
-     
-      stoplicht(1, ROOD); 
-      stoplicht(2, ROOD); 
-      stoplicht(3, ROOD); 
-      stoplicht(4, ROOD);
-      stoplicht(5, ROOD);
-      stoplicht(6, GROEN);
-      stoplicht(7, ROOD);
-      stoplicht(8, ROOD);
-    }
+
+    stoplicht(1, ROOD);
+    stoplicht(2, ROOD);
+    stoplicht(3, ROOD);
+    stoplicht(4, ROOD);
+    stoplicht(5, GROEN);
+    stoplicht(6, GROEN);
+    stoplicht(7, ROOD);
+    stoplicht(8, ROOD);
   }
-  
-// zet stoplichten conform toestand
+
+
+  // zet stoplichten conform toestand
   if (toestand == GROEP33) {
-     
-      stoplicht(1, ROOD); 
-      stoplicht(2, ROOD); 
-      stoplicht(3, ROOD); 
-      stoplicht(4, ROOD);
-      stoplicht(5, ROOD);
-      stoplicht(6, ORANJE);
-      stoplicht(7, ROOD);
-      stoplicht(8, ROOD);
-    }
+
+    stoplicht(1, ROOD);
+    stoplicht(2, ROOD);
+    stoplicht(3, ROOD);
+    stoplicht(4, ROOD);
+    stoplicht(5, ORANJE);
+    stoplicht(6, ORANJE);
+    stoplicht(7, ROOD);
+    stoplicht(8, ROOD);
   }
 
-// zet stoplichten conform toestand
+
+  // zet stoplichten conform toestand
   if (toestand == GROEP4) {
-     
-      stoplicht(1, ROOD); 
-      stoplicht(2, ROOD); 
-      stoplicht(3, ROOD); 
-      stoplicht(4, ROOD);
-      stoplicht(5, ROOD);
-      stoplicht(6, ROOD);
-      stoplicht(7, GROEN);
-      stoplicht(8, GROEN);
-    }
-  }
-   
-// zet stoplichten conform toestand
-  if (toestand == GROEP5) {
-     
-      stoplicht(1, ROOD); 
-      stoplicht(2, ROOD); 
-      stoplicht(3, ROOD); 
-      stoplicht(4, ROOD);
-      stoplicht(5, ROOD);
-      stoplicht(6, ROOD);
-      stoplicht(7, ROOD);
-      stoplicht(8, ROOD);
-    }
+
+    stoplicht(1, ROOD);
+    stoplicht(2, ROOD);
+    stoplicht(3, ROOD);
+    stoplicht(4, ROOD);
+    stoplicht(5, ROOD);
+    stoplicht(6, ROOD);
+    stoplicht(7, GROEN);
+    stoplicht(8, GROEN);
   }
 
-// zet stoplichten conform toestand
-  if (toestand == GROEP6) {
-     
-      stoplicht(1, GROEN); 
-      stoplicht(2, ROOD); 
-      stoplicht(3, ROOD); 
-      stoplicht(4, ROOD);
-      stoplicht(5, GROEN);
-      stoplicht(6, GROEN);
-      stoplicht(7, ROOD);
-      stoplicht(8, ROOD);
-    }
+
+  // zet stoplichten conform toestand
+  if (toestand == GROEP5) {
+
+    stoplicht(1, ROOD);
+    stoplicht(2, ROOD);
+    stoplicht(3, ROOD);
+    stoplicht(4, ROOD);
+    stoplicht(5, ROOD);
+    stoplicht(6, ROOD);
+    stoplicht(7, ROOD);
+    stoplicht(8, ROOD);
   }
+
+
+  // zet stoplichten conform toestand
+  if (toestand == GROEP6) {
+
+    stoplicht(1, ROOD);
+    stoplicht(2, ROOD);
+    stoplicht(3, ROOD);
+    stoplicht(4, ROOD);
+    stoplicht(5, GROEN);
+    stoplicht(6, GROEN);
+    stoplicht(7, ROOD);
+    stoplicht(8, ROOD);
+  }
+
 
   if (toestand == GROEP3) {
     for (int i = 1; i <= 8; i = i + 1) {
       stoplicht(i, GROEN);
     }
   }
-  
   if (toestand == GROEP2) {
     for (int i = 1; i <= 6; i = i + 1) {
       stoplicht(i, ORANJE);
     }
-  }
 
+  }
   // vertraging om te zorgen dat berichten op de seriele monitor leesbaar blijven
   delay(100);
 }
-
-*/ for (int i = 1; i <= 8; i = i + 1) */ {
