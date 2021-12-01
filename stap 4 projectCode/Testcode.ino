@@ -189,7 +189,7 @@ void loop() {
   }
 
   if (toestand == GROEP11) {
-    if (millis() - toestandStartTijd > 1000) {
+    if (millis() - toestandStartTijd > 2000) {
       toestandStartTijd = millis();
       toestand = GROEP2;
       Serial.println("Nieuwe toestand: GROEP2");
@@ -205,7 +205,7 @@ void loop() {
   }
 
   if (toestand == GROEP22) {
-    if (millis() - toestandStartTijd > 1000) {
+    if (millis() - toestandStartTijd > 2000) {
       toestandStartTijd = millis();
       toestand = GROEP3;
       Serial.println("Nieuwe toestand: GROEP3");
@@ -221,7 +221,7 @@ void loop() {
   }
    
   if (toestand == GROEP33) {
-    if (millis() - toestandStartTijd > 1000) {
+    if (millis() - toestandStartTijd > 2000) {
       toestandStartTijd = millis();
       toestand = GROEP1;
       Serial.println("Nieuwe toestand: GROEP4");
@@ -244,20 +244,27 @@ void loop() {
     }
   }
  */
-  /* code voor knoppen
+  /*code voor knoppen */
   
-    if (knop7 == HIGH || knop8 == HIGH) {
+    if (knop7 == HIGH|| knop8 == HIGH) {
       toestand = GROEP4;
       Serial.println("Nieuwe toestand:GROEP4");
     }
     if (toestand == GROEP4) {
+      (millis() - toestandStartTijd > 1000);
+      toestandStartTijd = millis();
+      toestand = GROEP4;
+      Serial.println("Nieuwe toestand: GROEP5");
+    }
+
+    if (toestand == GROEP5) {
       if (knop7 == LOW && knop8 == LOW) { // beide knoppen niet ingedrukt
         toestandStartTijd = millis();
-        toestand = GROEP5;
+        toestand = GROEP4;
         Serial.println("Nieuwe toestand: GROEP5");
       }
     }
-  */
+  
    
  
 
