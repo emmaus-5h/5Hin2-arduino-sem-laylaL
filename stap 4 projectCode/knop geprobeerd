@@ -379,3 +379,4 @@ void loop() {
   */
   // vertraging om te zorgen dat berichten op de seriele monitor leesbaar blijven
   delay(100);
+}
